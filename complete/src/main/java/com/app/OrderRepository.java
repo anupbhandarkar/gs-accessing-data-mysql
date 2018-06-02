@@ -1,4 +1,4 @@
-package anup;
+package com.app;
 
 import org.springframework.data.repository.CrudRepository;
 

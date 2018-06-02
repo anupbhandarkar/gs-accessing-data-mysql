@@ -1,4 +1,4 @@
-package anup;
+package com.app;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
