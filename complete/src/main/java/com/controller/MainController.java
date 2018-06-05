@@ -14,18 +14,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.app.Document;
 import com.app.DocumentRepository;
 import com.app.OrderRepository;
 import com.app.RequestRepository;
+import com.interceptor.LoggingInterceptor;
 
 
 
 
 @RestController
 @RequestMapping(path="/demo") 
-public class MainController {
+public class MainController extends WebMvcConfigurerAdapter  {
 
 	@Autowired 
 	private DocumentRepository documentRepository;
@@ -33,6 +36,13 @@ public class MainController {
 	private RequestRepository requestRepository;
 	@Autowired
 	private OrderRepository orderRepository;
+	
+	
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+	    registry.addInterceptor(new LoggingInterceptor());
+	   
+	}
 	
 	/*@GetMapping(path="/all")
 	public @ResponseBody Iterable<Document> getAllUsers() {
@@ -67,11 +77,11 @@ public class MainController {
 			) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
-		
-	/*	Documents d = new Documents();
+		/*
+		Document d = new Document();
 	d.setDocumentnumber(documentnumber);
 	d.setDocumentyear(documentyear);*/
-		//documentRepository.save(d);
+		documentRepository.save(d);
 		return "Saved";
 	}
 		
